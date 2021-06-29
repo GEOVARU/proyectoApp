@@ -6,7 +6,6 @@ class CoinDetailScreen extends Component {
         console.log("Coin: ", this.props.route.params);
     }
 
-
     render() {
         return (
             <View>
