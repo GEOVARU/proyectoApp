@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Platform } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Image, Platform } from 'react-native';
 import colors from '../../res/colors';
 
 
-const CoinItem = ({ item }) => {
+const CoinItem = ({ item, onPress }) => {
 
 
     getImgArrow = () => {
@@ -15,7 +15,9 @@ const CoinItem = ({ item }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <Pressable 
+        onPress={onPress} 
+        style={styles.container}>
             <View style={styles.row}>
                 <Text style={styles.textLigth}>{item.name}</Text>
                 <Text style={styles.textSmall}>{item.symbol}</Text>
@@ -30,7 +32,7 @@ const CoinItem = ({ item }) => {
                     source={getImgArrow()}
                 />
             </View>
-        </View>
+        </Pressable>
     );
 }
 
