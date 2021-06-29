@@ -3,7 +3,7 @@ import { View, Text, FlatList, Pressable, ActivityIndicator, StyleSheet } from '
 import Http from '../../libs/http';
 import CoinItem from './CoinsItem';
 
-
+import colors from '../../res/colors';
 
 
 class ConinsScreen extends Component {
@@ -37,7 +37,6 @@ class ConinsScreen extends Component {
                     Coins Screen :p
                 </Text>
 
-
                 { loading ?
                     <ActivityIndicator color="#fff" size="large" />
                     : null
@@ -59,7 +58,7 @@ class ConinsScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "black"
+        backgroundColor: colors.charade
     },
     textLigth: {
         margin: 5,
