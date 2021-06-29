@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Pressable, ActivityIndicator, StyleSheet } from 'react-native';
 import Http from '../../libs/http';
+import CoinItem from './CoinsItem';
+
+
+
 
 class ConinsScreen extends Component {
 
-    componentDidMount = async () => {
-        const coins = await Http.instance.get("https://api.coinlore.net/api/tickers/");
-        console.log("coins : ", coins);
+    state = {
+        coins: [],
+        loading: false
     }
-    
+
+    componentDidMount = async () => {
+        this.setState({ loading: true });
+
+        const res = await Http.instance.get("https://api.coinlore.net/api/tickers/");
+
+        this.setState({ coins: res.data, loading: false });
+    }
+
 
     handlePress = () => {
         // console.log("Miremos los detalles", this.props);
@@ -16,16 +28,26 @@ class ConinsScreen extends Component {
     }
 
     render() {
+
+        const { coins, loading } = this.state;
+
         return (
             <View style={styles.container}>
                 <Text style={styles.textLigth}>
                     Coins Screen :p
                 </Text>
-                <Pressable style={styles.btn} onPress={this.handlePress}>
-                    <Text style={styles.textDarck}>
-                        Ir a la pantalla
-                    </Text>
-                </Pressable>
+
+
+                { loading ?
+                    <ActivityIndicator color="#fff" size="large" />
+                    : null
+                }
+                <FlatList
+                    data={coins}
+                    renderItem={({ item }) =>
+                        <CoinItem item={item} />
+                    }
+                />
             </View>
         );
     }
@@ -40,7 +62,7 @@ const styles = StyleSheet.create({
         backgroundColor: "black"
     },
     textLigth: {
-        margin:5,
+        margin: 5,
         color: 'white',
         textAlign: 'center'
     },
