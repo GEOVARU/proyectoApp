@@ -87,6 +87,7 @@ class CoinDetailScreen extends Component {
                 </Text>
                 <FlatList
                     style={style.list}
+                    keyExtractor={(item) => `${item.base}-${item.name}-${item.quote}`}
                     horizontal={true}
                     data={markets}
                     renderItem={({ item }) => <CoinMarketItem item={item} />}
