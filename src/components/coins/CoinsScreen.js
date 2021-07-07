@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, Pressable, ActivityIndicator, StyleSheet } from 'react-native';
 import Http from '../../libs/http';
 import CoinItem from './CoinsItem';
-
+import CoinsSearch from './CoinsSearch';
 import colors from '../../res/colors';
 
 
@@ -10,20 +10,35 @@ class ConinsScreen extends Component {
 
     state = {
         coins: [],
+        allCoins: [],
         loading: false
     }
 
-    componentDidMount = async () => {
+    componentDidMount = () => {
+        this.getCoins();
+    }
+
+
+    getCoins = async () => {
         this.setState({ loading: true });
 
         const res = await Http.instance.get("https://api.coinlore.net/api/tickers/");
 
-        this.setState({ coins: res.data, loading: false });
+        this.setState({ coins: res.data, allCoins: res.data, loading: false });
     }
 
 
     handlePress = (coin) => {
         this.props.navigation.navigate('CoinDetail', { coin });
+    }
+
+    handleSearch = (query) => {
+        const { allCoins } = this.state;
+        const coinsFiltered = allCoins.filter((coin) => {
+            return coin.name.toLowerCase().includes(query.toLowerCase()) || coin.symbol.toLowerCase().includes(query.toLowerCase());
+        });
+
+        this.setState({ coins: coinsFiltered });
     }
 
     render() {
@@ -35,7 +50,7 @@ class ConinsScreen extends Component {
                 <Text style={styles.textLigth}>
                     Coins Screen :p
                 </Text>
-
+                <CoinsSearch onChange={this.handleSearch} />
                 {loading ?
                     <ActivityIndicator color="#fff" size="large" />
                     : null
