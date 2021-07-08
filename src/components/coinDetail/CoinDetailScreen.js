@@ -7,7 +7,8 @@ import CoinMarketItem from './CoinMarketItem';
 class CoinDetailScreen extends Component {
     state = {
         coin: {},
-        markets: []
+        markets: [],
+        isFavorite: false
     }
 
     getSymbolIcon = (name) => {
@@ -57,7 +58,7 @@ class CoinDetailScreen extends Component {
 
     render() {
 
-        const { coin, markets } = this.state;
+        const { coin, markets, isFavorite } = this.state;
 
         return (
             <View style={style.container}>
@@ -67,7 +68,18 @@ class CoinDetailScreen extends Component {
                         {coin.name}
                     </Text>
 
-                    <Pressable />
+                    <Pressable
+                    style={[
+                        style.btnFavorite,
+
+                        isFavorite ? 
+                        style.btnFavoriteRemove:
+                        style.btnFavoriteAdd
+
+                     ]}
+                    >
+                        <Text> {isFavorite ? "Remove favorite" :"Add favorite"}</Text>
+                    </Pressable>
                 </View>
                 <SectionList
                     style={style.section}
@@ -145,7 +157,17 @@ const style = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 16,
         textAlign: "center"
-    }
+    },
+    btnFavorite: {
+        padding: 8,
+        borderRadius:8
+    },
+    btnFavoriteAdd:{
+        backgroundColor: colors.picton
+    },
+    btnFavoriteRemove:{
+        backgroundColor: colors.carmine
+    },
 });
 
 
