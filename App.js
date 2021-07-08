@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import CoinsStack from './src/components/coins/CoinsStack';
+import FavoritesStack from './src/components/favorites/FavoritesStack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import colors from './src/res/colors';
 
@@ -34,6 +35,26 @@ const App = () => {
             )
           }}
         />
+
+
+        <Tabs.Screen
+          name="Favorites"
+          component={FavoritesStack}
+          options={{
+            tabBarIcon: ({
+              size, color
+            }) => (
+              <Image
+                style={{ tintColor: color, width: size, height: size }}
+                source={require('./src/assets/star.png')}
+              />
+            )
+          }}
+        />
+
+
+
+
       </Tabs.Navigator>
     </NavigationContainer>
   );
