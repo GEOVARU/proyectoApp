@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, SectionList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, SectionList, Pressable } from 'react-native';
 import colors from '../../res/colors';
 import Http from '../../libs/http';
 import CoinMarketItem from './CoinMarketItem';
@@ -66,6 +66,8 @@ class CoinDetailScreen extends Component {
                     <Text style={style.titleText}>
                         {coin.name}
                     </Text>
+
+                    <Pressable />
                 </View>
                 <SectionList
                     style={style.section}
